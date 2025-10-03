@@ -34,7 +34,7 @@ yarn-error.log*
 .env
 
 # e2b toml file
-sandbox-templates/nextjs/e2b.toml
+# sandbox-templates/nextjs/e2b.toml
 
 # vercel
 .vercel
