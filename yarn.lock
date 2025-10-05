@@ -1675,6 +1675,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@prisma/client@npm:^6.16.3":
+  version: 6.16.3
+  resolution: "@prisma/client@npm:6.16.3"
+  peerDependencies:
+    prisma: "*"
+    typescript: ">=5.1.0"
+  peerDependenciesMeta:
+    prisma:
+      optional: true
+    typescript:
+      optional: true
+  checksum: 10/7157cd65b1775dbca9facf3af3b40f418efa340073f0c31a25876547ae004e5ad730fa021dc0f1471bf39f228e3820432d250f956c532ca20280563c88095e71
+  languageName: node
+  linkType: hard
+
 "@prisma/config@npm:6.16.2":
   version: 6.16.2
   resolution: "@prisma/config@npm:6.16.2"
@@ -3599,6 +3614,7 @@ __metadata:
     "@e2b/code-interpreter": "npm:^2.0.0"
     "@inngest/agent-kit": "npm:^0.13.0"
     "@prisma/adapter-pg": "npm:^6.16.2"
+    "@prisma/client": "npm:^6.16.3"
     "@radix-ui/react-slot": "npm:^1.2.3"
     "@tailwindcss/postcss": "npm:^4"
     "@tanstack/react-query": "npm:^5.90.2"
