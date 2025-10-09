@@ -50,3 +50,8 @@ export type Message = Prisma.MessageModel
  * 
  */
 export type Fragment = Prisma.FragmentModel
+/**
+ * Model Project
+ * 
+ */
+export type Project = Prisma.ProjectModel

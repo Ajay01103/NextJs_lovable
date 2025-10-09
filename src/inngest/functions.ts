@@ -1,9 +1,9 @@
 import { Sandbox } from "@e2b/code-interpreter"
 import {
+  anthropic,
   createAgent,
   createNetwork,
   createTool,
-  openai,
   type Tool,
 } from "@inngest/agent-kit"
 import z from "zod"
@@ -31,10 +31,10 @@ export const codeAgentFunction = inngest.createFunction(
       name: "Code writer",
       description: "An expert coding agent",
       system: PROMPT,
-      model: openai({
-        baseUrl: "https://openrouter.ai/api/v1",
-        apiKey: process.env.DEEPSEEK_V3_API_KEY,
-        model: "deepseek/deepseek-chat-v3.1:free",
+      model: anthropic({
+        defaultParameters: { max_tokens: 4096 },
+        model: "claude-3-5-sonnet-20240620",
+        apiKey: process.env.CLAUDE_KEY,
       }),
       tools: [
         createTool({
@@ -89,7 +89,7 @@ export const codeAgentFunction = inngest.createFunction(
               "createOrUpdateFiles",
               async () => {
                 try {
-                  const updatedFiles = network.state.data.files || [] // if does not work then put {}
+                  const updatedFiles = network.state.data.files || {} // if does not work then put {}
                   const sandbox = await getSandbox(sandboxId)
 
                   for (const file of files) {
@@ -170,7 +170,7 @@ export const codeAgentFunction = inngest.createFunction(
     // {}).length if it creates error in future
     const isError =
       !result.state.data.summary ||
-      Object.keys(result.state.data.files || []).length === 0
+      Object.keys(result.state.data.files || {}).length === 0
 
     const sandboxUrl = await step.run("get-sandbox-url", async () => {
       const sandbox = await getSandbox(sandboxId)
@@ -184,6 +184,7 @@ export const codeAgentFunction = inngest.createFunction(
       if (isError) {
         return await prisma.message.create({
           data: {
+            projectId: event.data.projectId,
             content: "Something went wrong, Please try again",
             role: "ASSISTANT",
             type: "ERROR",
@@ -193,6 +194,7 @@ export const codeAgentFunction = inngest.createFunction(
 
       return await prisma.message.create({
         data: {
+          projectId: event.data.projectId,
           content: result.state.data.summary,
           role: "ASSISTANT",
           type: "RESULT",

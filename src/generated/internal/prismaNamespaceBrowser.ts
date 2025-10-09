@@ -20,7 +20,8 @@ export type * from './prismaNamespace'
 export const Decimal = runtime.Decimal
 export const ModelName = {
   Message: 'Message',
-  Fragment: 'Fragment'
+  Fragment: 'Fragment',
+  Project: 'Project'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -44,7 +45,8 @@ export const MessageScalarFieldEnum = {
   role: 'role',
   type: 'type',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  projectId: 'projectId'
 } as const
 
 export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
@@ -61,6 +63,16 @@ export const FragmentScalarFieldEnum = {
 } as const
 
 export type FragmentScalarFieldEnum = (typeof FragmentScalarFieldEnum)[keyof typeof FragmentScalarFieldEnum]
+
+
+export const ProjectScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
 
 
 export const SortOrder = {
