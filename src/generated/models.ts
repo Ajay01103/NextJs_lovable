@@ -9,4 +9,5 @@
  */
 export type * from './models/Message'
 export type * from './models/Fragment'
+export type * from './models/Project'
 export type * from './commonInputTypes'
