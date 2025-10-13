@@ -7,6 +7,7 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
 import type { Fragment } from "@/generated/client"
+import { FragmentWeb } from "../components/fragment-web"
 import { MessagesContainer } from "../components/messages-container"
 import { ProjectHeader } from "../components/project-header"
 
@@ -38,7 +39,7 @@ export const ProjectView = ({ projectId }: Props) => {
         <ResizablePanel
           defaultSize={65}
           minSize={50}>
-          TODO: Preview
+          {!!activeFragment && <FragmentWeb data={activeFragment} />}
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>
