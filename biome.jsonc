@@ -41,10 +41,10 @@
       },
       "nursery": {
         "useSortedClasses": {
-          "fix": "unsafe",
+          "fix": "safe",
           "level": "on",
           "options": {
-            "attributes": ["classList"],
+            "attributes": ["classList", "className"],
             "functions": ["clsx", "cva", "tw", "tw.*"]
           }
         }
