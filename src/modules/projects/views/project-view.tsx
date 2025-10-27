@@ -41,7 +41,7 @@ export const ProjectView = ({ projectId }: Props) => {
             setActiveFragment={setActiveFragment}
           />
         </ResizablePanel>
-        <ResizableHandle withHandle />
+        <ResizableHandle className="transition-colors hover:bg-primary" />
         <ResizablePanel
           defaultSize={65}
           minSize={50}>

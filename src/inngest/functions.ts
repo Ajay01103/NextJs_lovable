@@ -1,9 +1,9 @@
 import { Sandbox } from "@e2b/code-interpreter"
 import {
-  anthropic,
   createAgent,
   createNetwork,
   createTool,
+  gemini,
   type Tool,
 } from "@inngest/agent-kit"
 import z from "zod"
@@ -31,10 +31,9 @@ export const codeAgentFunction = inngest.createFunction(
       name: "Code writer",
       description: "An expert coding agent",
       system: PROMPT,
-      model: anthropic({
-        defaultParameters: { max_tokens: 4096 },
-        model: "claude-3-5-sonnet-20240620",
-        apiKey: process.env.CLAUDE_KEY,
+      model: gemini({
+        model: "gemini-2.0-flash",
+        apiKey: process.env.GEMINI_API_KEY,
       }),
       tools: [
         createTool({
