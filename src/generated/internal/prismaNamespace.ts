@@ -701,6 +701,7 @@ export type FragmentScalarFieldEnum = (typeof FragmentScalarFieldEnum)[keyof typ
 export const ProjectScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

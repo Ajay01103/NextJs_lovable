@@ -1,4 +1,6 @@
 "use client"
+
+import { useUser } from "@clerk/nextjs"
 import { useQuery } from "@tanstack/react-query"
 import { formatDistanceToNow } from "date-fns"
 import Image from "next/image"
@@ -7,12 +9,19 @@ import { Button } from "@/components/ui/button"
 import { useTRPC } from "@/trpc/client"
 
 export const ProjectsList = () => {
+  const { user } = useUser()
   const trpc = useTRPC()
   const { data: projects } = useQuery(trpc.projects.getMany.queryOptions())
 
+  if (!user) {
+    return null
+  }
+
   return (
     <div className="flex w-full flex-col gap-y-6 rounded-xl border bg-white p-8 sm:gap-y-4 dark:bg-sidebar">
-      <h2 className="font-semibold text-2xl">Recent Vibes</h2>
+      <h2 className="font-semibold text-2xl">
+        {user?.firstName}&apos;s Recent Vibes
+      </h2>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
         {projects?.length === 0 && (
@@ -25,6 +34,7 @@ export const ProjectsList = () => {
           <Button
             key={project.id}
             variant="outline"
+            asChild
             className="h-auto w-full justify-start p-4 text-start font-normal">
             <Link href={`/projects/${project.id}`}>
               <div className="flex items-center gap-x-4">
