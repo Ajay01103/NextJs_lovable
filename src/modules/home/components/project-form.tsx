@@ -1,5 +1,6 @@
 "use client"
 
+import { useClerk } from "@clerk/nextjs"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { ArrowUp, Loader2 } from "lucide-react"
@@ -16,11 +17,16 @@ import { useTRPC } from "@/trpc/client"
 import { PROJECT_TEMPLATES } from "../constants"
 
 const formSchema = z.object({
-  value: z.string().min(1, "value is required").max(10000, "value is too long"),
+  value: z
+    .string()
+    .trim()
+    .min(1, "value is required")
+    .max(10000, "value is too long"),
 })
 
 export const ProjectForm = () => {
   const router = useRouter()
+  const clerk = useClerk()
   const queryClient = useQueryClient()
   const trpc = useTRPC()
   const { mutateAsync: createProject, isPending } = useMutation(
@@ -30,6 +36,10 @@ export const ProjectForm = () => {
         router.push(`/projects/${data.id}`)
       },
       onError: (error) => {
+        if (error.data?.code === "UNAUTHORIZED") {
+          clerk.openSignIn()
+        }
+
         toast.error(error.message)
       },
     })

@@ -11,6 +11,7 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { UserControl } from "@/components/user-control"
 import type { Fragment } from "@/generated/client"
 import { FragmentWeb } from "../components/fragment-web"
 import { MessagesContainer } from "../components/messages-container"
@@ -69,11 +70,12 @@ export const ProjectView = ({ projectId }: Props) => {
                 <Button
                   asChild
                   size="sm"
-                  variant="default">
+                  variant="tertiary">
                   <Link href={"/pricing"}>
                     <Crown /> Upgrade
                   </Link>
                 </Button>
+                <UserControl />
               </div>
             </div>
             <TabsContent value="preview">
