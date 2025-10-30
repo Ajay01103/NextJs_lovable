@@ -1,5 +1,6 @@
 "use client"
 
+import { useAuth } from "@clerk/nextjs"
 import { Code, Crown, Eye } from "lucide-react"
 import Link from "next/link"
 import { Suspense, useState } from "react"
@@ -24,6 +25,9 @@ interface Props {
 export const ProjectView = ({ projectId }: Props) => {
   const [activeFragment, setActiveFragment] = useState<Fragment | null>(null)
   const [tabsState, settabsState] = useState<"preview" | "code">("preview")
+
+  const { has } = useAuth()
+  const hasProAccess = has?.({ plan: "pro" })
 
   return (
     <div className="h-screen">
@@ -67,14 +71,16 @@ export const ProjectView = ({ projectId }: Props) => {
                 </TabsTrigger>
               </TabsList>
               <div className="ml-auto flex items-center gap-x-2">
-                <Button
-                  asChild
-                  size="sm"
-                  variant="tertiary">
-                  <Link href={"/pricing"}>
-                    <Crown /> Upgrade
-                  </Link>
-                </Button>
+                {!hasProAccess && (
+                  <Button
+                    asChild
+                    size="sm"
+                    variant="tertiary">
+                    <Link href={"/pricing"}>
+                      <Crown /> Upgrade
+                    </Link>
+                  </Button>
+                )}
                 <UserControl />
               </div>
             </div>

@@ -55,3 +55,8 @@ export type Fragment = Prisma.FragmentModel
  * 
  */
 export type Project = Prisma.ProjectModel
+/**
+ * Model Usage
+ * 
+ */
+export type Usage = Prisma.UsageModel

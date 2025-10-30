@@ -5,10 +5,18 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { UserControl } from "@/components/user-control"
+import { useScroll } from "@/hooks/use-scroll"
+import { cn } from "@/lib/utils"
 
 export const HomeNavbar = () => {
+  const isScrolled = useScroll(10)
+
   return (
-    <div className="fixed top-0 right-0 left-0 z-50 bg-transparent p-4 transition-all duration-200">
+    <div
+      className={cn(
+        "fixed top-0 right-0 left-0 z-50 bg-transparent p-4 transition-all duration-200",
+        isScrolled && "border-border bg-background"
+      )}>
       <div className="mx-auto flex w-full max-w-5xl items-center justify-between">
         <Link
           href="/"

@@ -1,8 +1,9 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { ArrowUp, Loader2 } from "lucide-react"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import TextareaAutosize from "react-textarea-autosize"
@@ -12,6 +13,7 @@ import { Button } from "@/components/ui/button"
 import { Form, FormField } from "@/components/ui/form"
 import { cn } from "@/lib/utils"
 import { useTRPC } from "@/trpc/client"
+import { Usage } from "./usage"
 
 interface Props {
   projectId: string
@@ -22,6 +24,7 @@ const formSchema = z.object({
 })
 
 export const MessageForm = ({ projectId }: Props) => {
+  const router = useRouter()
   const queryClient = useQueryClient()
   const trpc = useTRPC()
   const { mutateAsync: createMessage, isPending } = useMutation(
@@ -31,15 +34,22 @@ export const MessageForm = ({ projectId }: Props) => {
         queryClient.invalidateQueries(
           trpc.messages.getMany.queryOptions({ projectId })
         )
+        queryClient.invalidateQueries(trpc.usage.status.queryOptions())
       },
       onError: (error) => {
         toast.error(error.message)
+
+        if (error.data?.code === "TOO_MANY_REQUESTS") {
+          router.push("/pricing")
+        }
       },
     })
   )
 
+  const { data: usage } = useQuery(trpc.usage.status.queryOptions())
+
   const [isFocused, setIsFocused] = useState(false)
-  const showUsage = false
+  const showUsage = !!usage
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -56,6 +66,12 @@ export const MessageForm = ({ projectId }: Props) => {
 
   return (
     <Form {...form}>
+      {showUsage && (
+        <Usage
+          points={usage.remainingPoints}
+          msBeforeNext={usage.msBeforeNext}
+        />
+      )}
       <form
         className={cn(
           "relative rounded-xl border bg-sidebar p-4 pt-1 transition-all dark:bg-sidebar",
