@@ -4517,6 +4517,7 @@ __metadata:
     prisma: "npm:^6.16.2"
     prismjs: "npm:^1.30.0"
     random-word-slugs: "npm:^0.1.7"
+    rate-limiter-flexible: "npm:^8.1.0"
     react: "npm:19.1.0"
     react-dom: "npm:19.1.0"
     react-hook-form: "npm:^7.64.0"
@@ -5212,6 +5213,13 @@ __metadata:
   version: 1.2.1
   resolution: "range-parser@npm:1.2.1"
   checksum: 10/ce21ef2a2dd40506893157970dc76e835c78cf56437e26e19189c48d5291e7279314477b06ac38abd6a401b661a6840f7b03bd0b1249da9b691deeaa15872c26
+  languageName: node
+  linkType: hard
+
+"rate-limiter-flexible@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "rate-limiter-flexible@npm:8.1.0"
+  checksum: 10/26bdb6b2d8f369ae399f0108193d54f3aad04d115453c15dadb67663ff40795bcba27bd3d43816e3fe80c5f7cacace5876070028d2341e8c1dc54c87fd140961
   languageName: node
   linkType: hard
 
