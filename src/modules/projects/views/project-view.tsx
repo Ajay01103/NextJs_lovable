@@ -4,6 +4,7 @@ import { useAuth } from "@clerk/nextjs"
 import { Code, Crown, Eye } from "lucide-react"
 import Link from "next/link"
 import { Suspense, useState } from "react"
+import { ErrorBoundary } from "react-error-boundary"
 import { FileExplorer } from "@/components/file-explorer"
 import { Button } from "@/components/ui/button"
 import {
@@ -36,9 +37,11 @@ export const ProjectView = ({ projectId }: Props) => {
           defaultSize={35}
           minSize={20}
           className="flex min-h-0 flex-col">
-          <Suspense fallback={<p>Loading...</p>}>
-            <ProjectHeader projectId={projectId} />
-          </Suspense>
+          <ErrorBoundary fallback={<p>Error!</p>}>
+            <Suspense fallback={<p>Loading...</p>}>
+              <ProjectHeader projectId={projectId} />
+            </Suspense>
+          </ErrorBoundary>
 
           <MessagesContainer
             projectId={projectId}
